@@ -1,0 +1,99 @@
+% <- percent signs are used to comment
+\documentclass[12pt]{article}
+
+%%%%%% PACKAGES - this part loads additional material for LaTeX %%%%%%%%%
+% Nearly anything you want can be done in LaTeX if you load the right package 
+% (search ctan.org or google it if you are looking for something).  We will load
+% here a few that we need for this document or that we expect you to need later.
+
+% The next 3 lines are needed to fix shortcomings of TeX that only make sense given its 40-year history ...
+% Simple keep and ignore.
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{changepage}
+\usepackage{lipsum}
+\usepackage{caption}
+
+% Custom margins (and paper sizes etc.) because LaTeX else wastes much space
+\usepackage[margin=1in]{geometry}
+
+% The following packages are created by the American Mathematical Society (AMS)
+% and provide lots of tools for special fonts, symbols, theorems, and proof
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+% mathtools contains many detail improvements over ams and core tex
+\usepackage{mathtools}
+
+% graphicx is required for images
+\usepackage{graphicx}
+
+% enumitem used for customizing enumerations
+\usepackage[shortlabels]{enumitem}
+
+% tikz is the package used for drawing, in particular for drawing trees. You may also find simplified packages like tikz-qtree and forest useful
+\usepackage{tikz}
+
+% hyperref allows links, urls, and many other PDF tricks.  We load it here
+%          in such a way that the PDF file has info about it
+\usepackage[%
+	pdftitle={CS240 Assignment 0},%
+	hidelinks,%
+]{hyperref}
+
+
+%%%%%% COMMANDS - here you can define your own LaTeX-commands %%%%%%%%%
+
+%%%%%% End of Preamble %%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{center}
+{\Large\textbf{CS240, Spring 2022}}\\
+\vspace{2mm}
+{\Large\textbf{Assignment 5: Question 5}}\\
+\vspace{3mm}
+\end{center}
+
+\begin{adjustwidth}{0em}{0pt}
+\textbf{Q5a)} Compute the failure array for the pattern $P=$\texttt{ississi}.
+\begin{center}
+	\begin{tabular}{|c|c|c|c|c|c|c|} \hline
+		F[0] & F[1] & F[2] & F[3] & F[4] & F[5] & F[7]  \\ \hline
+		0 & 0 & 0  & 1  & 2 & 3 & 4   \\ \hline
+	\end{tabular}
+\end{center}
+\textbf{Q5b)} Show how to search for pattern in the text using the KMP algorithm. Indicate in a table such as Table ?? which characters of P were compared with which characters of T.
+\begin{center}
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+	\hline		m&i&s&s&i&s&s&a&u&g&a&m&i&s&m&i&s&s&i&s&s&i&p&p&i&m&i&l&l\\
+	\hline
+	\hline
+	x&&&&&&&&&&&&&&&&&&&&&&&&&&&&\\
+	\hline
+	&i&s&s&i&s&s&x&&&&&&&&&&&&&&&&&&&&&\\
+	\hline
+	&&&&(i)&(s)&(s)&x&&&&&&&&&&&&&&&&&&&&&\\
+	\hline
+	&&&&&&&x&&&&&&&&&&&&&&&&&&&&&\\
+	\hline
+	&&&&&&&&x&&&&&&&&&&&&&&&&&&&&\\
+	\hline
+	&&&&&&&&&x&&&&&&&&&&&&&&&&&&&\\
+	\hline
+	&&&&&&&&&&x&&&&&&&&&&&&&&&&&&\\
+	\hline
+	&&&&&&&&&&&x&&&&&&&&&&&&&&&&&\\
+	\hline
+	&&&&&&&&&&&&i&s&x&&&&&&&&&&&&&&\\
+	\hline
+	&&&&&&&&&&&&&&x&&&&&&&&&&&&&&\\
+	\hline
+	&&&&&&&&&&&&&&&i&s&s&i&s&s&i&&&&&&&\\
+	\hline
+	\end{tabular}
+\end{center}
+\end{adjustwidth} 
+\newpage
+
+\end{document}

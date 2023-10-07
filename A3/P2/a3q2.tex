@@ -1,0 +1,114 @@
+% <- percent signs are used to comment
+\documentclass[12pt]{article}
+
+%%%%%% PACKAGES - this part loads additional material for LaTeX %%%%%%%%%
+% Nearly anything you want can be done in LaTeX if you load the right package 
+% (search ctan.org or google it if you are looking for something).  We will load
+% here a few that we need for this document or that we expect you to need later.
+
+% The next 3 lines are needed to fix shortcomings of TeX that only make sense given its 40-year history ...
+% Simple keep and ignore.
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{changepage}
+\usepackage{lipsum}
+
+% Custom margins (and paper sizes etc.) because LaTeX else wastes much space
+\usepackage[margin=1in]{geometry}
+
+% The following packages are created by the American Mathematical Society (AMS)
+% and provide lots of tools for special fonts, symbols, theorems, and proof
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+% mathtools contains many detail improvements over ams and core tex
+\usepackage{mathtools}
+
+% graphicx is required for images
+\usepackage{graphicx}
+
+% enumitem used for customizing enumerations
+\usepackage[shortlabels]{enumitem}
+
+% tikz is the package used for drawing, in particular for drawing trees. You may also find simplified packages like tikz-qtree and forest useful
+\usepackage{tikz}
+
+% hyperref allows links, urls, and many other PDF tricks.  We load it here
+%          in such a way that the PDF file has info about it
+\usepackage[%
+	pdftitle={CS240 Assignment 0},%
+	hidelinks,%
+]{hyperref}
+
+
+%%%%%% COMMANDS - here you can define your own LaTeX-commands %%%%%%%%%
+
+%%%%%% End of Preamble %%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{center}
+{\Large\textbf{CS240, Spring 2022}}\\
+\vspace{2mm}
+{\Large\textbf{Assignment 3: Question 2}}\\
+\vspace{3mm}
+\end{center}
+\[ \]
+\begin{adjustwidth}{0em}{0pt}
+\textbf{Q2a)} The best case will occur when $random.size(A.size) = 0$. This will result in only a constant number of operations will run for each call of ArrayAlg. The array reduces by 1, which means that we will have a runtime of:
+\begin{align*}
+    \begin{aligned}
+       T(n) &= \sum^{n}_{i=0}1 \\
+       T(n) &= n \\
+       T(n) &\in O(n)  \\
+    \end{aligned}
+\end{align*}
+\textbf{Q2b)} The worst case will occur when $random.size(A.size) = n-1$. This will result in only a loop which will have $n-1$ of operations will run for each call of ArrayAlg. The array reduces by 1, which means that we will have a runtime of:
+\begin{align*}
+    \begin{aligned}
+       T(n) &= \sum^{n}_{i=0}(n-1) \\
+       T(n) &= \frac{(n+1)(n)}{2} -n \\
+       T(n) &= \frac{n^2}{2} - \frac{n}{2} \\
+       T(n) &= O(n^2)
+    \end{aligned}
+\end{align*}
+\textbf{Q2c)} For each iteration of ArrayAlg, we have a 2 possibilities: Either $random.size(A.size) = 0$ and so we will only do 1 operation, otherwise if $random.size(A.size) = x$ we will do $x$ operations as we will print x elements. Therefore our good and bad case looks like:
+\begin{align*}
+    T(A[0,...,A.Size]) = \begin{cases}
+       1 + T(A[0,...,A.Size-2] \text{ where $random.size(A.size) = 0$} \\
+       x + T(A[0,...,A.Size-2] \text{ where $random.size(A.size) = x$})
+    \end{cases}
+\end{align*}
+Note that for each iteration of ArrayAlg, the "good case" will only happen once, and the base case will happen the remaining times. Thus:
+\begin{align*}
+    \begin{aligned}
+       \text{number of good outcomes} = 1 \ \ & \ \ \text{number of bad outcomes} = n-1
+    \end{aligned}
+\end{align*}
+It thus follows that:
+\begin{align*}
+    \begin{aligned}
+       T^{exp}(n) &= \frac{1}{\prod_n} ( \sum_{\pi \in \prod_n:\pi good} T(\pi) + \sum_{\pi \in \prod_n:\pi bad} T(\pi) ) \\
+       T^{exp}(n) &= \frac{1}{\prod_n} ( \sum_{\pi \in \prod_n:\pi good} 1 + T(n-2) + \sum_{\pi \in \prod_n:\pi bad} x + T(n-2) ) \\
+       T^{exp}(n) &= \frac{1}{n} ( 1\times(1 + T(n-2)) + n\times(x + T(n-2)) )
+    \end{aligned}
+\end{align*}
+Howver since $1 <= x <= n-1$ it follows that $x < n$ thus we get:
+\begin{align*}
+    \begin{aligned}
+       T^{exp}(n) &= \frac{1}{n} ( 1\times(1 + T(n-1)) + (n-1)\times(x + T(n-1)) ) \\
+       T^{exp}(n) &< \frac{1}{n} ( 1\times(1 + T(n-1)) + (n-1)\times(n + T(n-1)) ) \\
+       T^{exp}(n) &< \frac{1}{n} ( 1 + T(n-1) + n^2 + nT(n-1) - n - T(n-1)) \\
+       T^{exp}(n) &< \frac{1}{n} ( 1 + n^2 + nT(n-1) - n ) \\
+       T^{exp}(n) &< \frac{1}{n} + n + T(n-1) - 1 \\
+    \end{aligned}
+\end{align*}
+So our function will run $n$ times and each time it will do $n+\frac{1}{n} -1 $ operations and since:
+\[ n ( n+\frac{1}{n} -1) \in O(n^2) \]
+Therefore $ T^{exp}(n) \in O(n^2) $
+\end{adjustwidth} 
+
+
+
+
+\end{document}

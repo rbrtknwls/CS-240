@@ -1,0 +1,105 @@
+% <- percent signs are used to comment
+\documentclass[12pt]{article}
+
+%%%%%% PACKAGES - this part loads additional material for LaTeX %%%%%%%%%
+% Nearly anything you want can be done in LaTeX if you load the right package 
+% (search ctan.org or google it if you are looking for something).  We will load
+% here a few that we need for this document or that we expect you to need later.
+
+% The next 3 lines are needed to fix shortcomings of TeX that only make sense given its 40-year history ...
+% Simple keep and ignore.
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{changepage}
+\usepackage{lipsum}
+\usepackage{caption}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+% Custom margins (and paper sizes etc.) because LaTeX else wastes much space
+\usepackage[margin=1in]{geometry}
+
+% The following packages are created by the American Mathematical Society (AMS)
+% and provide lots of tools for special fonts, symbols, theorems, and proof
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+% mathtools contains many detail improvements over ams and core tex
+\usepackage{mathtools}
+
+% graphicx is required for images
+\usepackage{graphicx}
+
+% enumitem used for customizing enumerations
+\usepackage[shortlabels]{enumitem}
+
+% tikz is the package used for drawing, in particular for drawing trees. You may also find simplified packages like tikz-qtree and forest useful
+\usepackage{tikz}
+
+% hyperref allows links, urls, and many other PDF tricks.  We load it here
+%          in such a way that the PDF file has info about it
+\usepackage[%
+	pdftitle={CS240 Assignment 0},%
+	hidelinks,%
+]{hyperref}
+
+
+%%%%%% COMMANDS - here you can define your own LaTeX-commands %%%%%%%%%
+
+%%%%%% End of Preamble %%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{center}
+{\Large\textbf{CS240, Spring 2022}}\\
+\vspace{2mm}
+{\Large\textbf{Assignment 5: Question 3}}\\
+\vspace{3mm}
+\end{center}
+
+\begin{adjustwidth}{0em}{0pt}
+\textbf{Q3a)} What do you need to change in the RLE from the slides to make it work for a ternary string?\\
+Since our alphabet for encoding can now contain 2, our encoding can now be expressed in base 3 rather then base 2. Since our base has increased, we will need to update Elias Gammas encoding to use $log_3$ rather then $log_2$ because we now have 3 possibilities for each possible letter (0,1,2).\\
+As well since we now have three possibilities for our alphabet, how we pick the leading character of each encryption sequence will change. We will now check the top value in the stream rather then just $b=b-1$\\\\
+\textbf{Q3b)} What are your ideas for making sure you are optimizing the compression rate? \\
+Since we are now using base 2 rather then base 3, the length of the encoding will be smaller in some cases. For example:
+\[ \text{Base 2 of 5}: 101 \]
+\[ \text{Base 3 of 5}: 12 \]
+Since the number of pre appended zeros matches the length of the string, we thus will optimize the compression rate by using $log_3$ rather then $log_2$.\\
+\textbf{Q3c)} Present your algorithm as a pseudocode.
+\begin{algorithm}
+\caption{Ternary RLE encoding}
+\begin{algorithmic} 
+\REQUIRE S, input-stream of bits, C: output-stream
+\STATE $b \leftarrow$ S.top()
+\WHILE{S is non-empty}
+\STATE C.append(b)
+\STATE $k \leftarrow 1$
+\WHILE{S is non-empty and S.top() == b}
+\STATE $k++$
+\STATE S.pop()
+\ENDWHILE
+\STATE $K \leftarrow$ empty string
+\WHILE{k > 2}
+\STATE C.append(0);
+\STATE K.prepend(k mod 3)
+\STATE $k \leftarrow \lfloor k/3 \rfloor$
+\ENDWHILE
+\STATE K.prepend(k)
+\STATE C.append(K)
+\STATE $b \leftarrow$ S.top()
+\ENDWHILE
+\end{algorithmic}
+\end{algorithm}
+\end{adjustwidth} 
+\newpage
+\begin{adjustwidth}{0em}{0pt}
+\textbf{Q3d)} What is the compression rate of your encoding scheme for the following ternary string? \\\\
+In order to make the string more readable we will break it into a list of pairs \{a,b\} where a represents the character being repeated and b represents the number of repeats. Thus the string can be represented by:
+\[ \{0,1\}, \{1, 1\}, \{2,1\}, \{0,2\}, \{1,2\}, \{2,2\}, \{0, 3\}, \{1, 3\}, \{2, 3\}, \{0, 4\}, \{1,4\}, \{2,4\}, \{0, 14\}, \{1, 16\}, \{2,17\} \]
+Plugging this into our algorithm our output is:
+\[ 011121021222001010102010001110112011000112100121200122 \]
+Thus our compression rate will be:
+\[ \text{compression rate} : \frac{54}{77} \approx 70\% \]
+\end{adjustwidth} 
+\end{document}

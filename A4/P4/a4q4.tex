@@ -1,0 +1,120 @@
+% <- percent signs are used to comment
+\documentclass[12pt]{article}
+
+%%%%%% PACKAGES - this part loads additional material for LaTeX %%%%%%%%%
+% Nearly anything you want can be done in LaTeX if you load the right package 
+% (search ctan.org or google it if you are looking for something).  We will load
+% here a few that we need for this document or that we expect you to need later.
+
+% The next 3 lines are needed to fix shortcomings of TeX that only make sense given its 40-year history ...
+% Simple keep and ignore.
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{changepage}
+\usepackage{lipsum}
+
+% Custom margins (and paper sizes etc.) because LaTeX else wastes much space
+\usepackage[margin=1in]{geometry}
+
+% The following packages are created by the American Mathematical Society (AMS)
+% and provide lots of tools for special fonts, symbols, theorems, and proof
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+% mathtools contains many detail improvements over ams and core tex
+\usepackage{mathtools}
+
+% graphicx is required for images
+\usepackage{graphicx}
+
+% enumitem used for customizing enumerations
+\usepackage[shortlabels]{enumitem}
+
+% tikz is the package used for drawing, in particular for drawing trees. You may also find simplified packages like tikz-qtree and forest useful
+\usepackage{tikz}
+
+% hyperref allows links, urls, and many other PDF tricks.  We load it here
+%          in such a way that the PDF file has info about it
+\usepackage[%
+	pdftitle={CS240 Assignment 0},%
+	hidelinks,%
+]{hyperref}
+
+
+%%%%%% COMMANDS - here you can define your own LaTeX-commands %%%%%%%%%
+
+%%%%%% End of Preamble %%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{center}
+{\Large\textbf{CS240, Spring 2022}}\\
+\vspace{2mm}
+{\Large\textbf{Assignment 4: Question 4}}\\
+\vspace{3mm}
+\end{center}
+\begin{adjustwidth}{0em}{0pt}
+\textbf{Q4a)} Which hash function is better? Justify your answer.\\\\
+To compare the two hash functions, lets consider their values for the first 7 elements of our universe:
+\begin{center}
+\begin{tabular}{||c | c c||}
+	\hline
+    k & Output of h1(k) & Output of h2(k) \\
+    \hline\hline
+    1 & 1 & 2 \\
+    \hline
+    2 & 2 & 4 \\
+    \hline
+    3 & 3 & 0 \\
+    \hline
+    4 & 4 & 2 \\
+    \hline
+    5 & 5 & 4 \\
+    \hline
+    6 & 0 & 0 \\
+    \hline
+    7 & 1 & 2 \\
+    \hline
+\end{tabular}
+\end{center}
+From this table we can see that the output of h1(k) encompasses the set \{0,1,2,3,4,5\} where as the output of h2(k) only encompasses \{2,4,0\}. \\\\
+Therefore since the output of h2(k) only has half as many outputs as h1(k) we would expect more conflicts and thus h1(k) is the better hash function. \\\\\\
+\textbf{Q4b)} Prove that $\lim\limits_{n\to \infty}\frac{c_n}{n} = \frac{1}{e}$.\\\\
+To start we know that the number of keys and the number of spaces in our hash table are both equal to n. Moving forward we will define an indicator variable I such that (where i is an integer between 0 and n-1):
+\[ I_i = \begin{cases}
+0 \ \ \text{if the hash table at index i has more then 0 elements chained in it} \\
+1 \ \ \text{if the has table at index i has 0 elements in it}
+\end{cases} \]
+Since $c_n$ represents the expected number of empty elements in the hash table, therefore we get:
+\[ c_n = \sum^{n}_{i=0}I_i \]
+An index will be empty if each of the n numbers that are inserted into the table go into any of the $n-1$ slots in the hash table. Therefore the expected value of any slot being empty is given by
+\[ E[I_i] = (\frac{n-1}{n})^n \]
+Plugging this into our equation for $c_n$ we get:
+\begin{align*}
+    \begin{aligned}
+       c_n &= \sum^{n}_{i=0}(\frac{n-1}{n})^n  \\
+       c_n &= n(\frac{n-1}{n})^n  \\
+    \end{aligned}
+\end{align*}
+Since we are asked to solve for $\lim\limits_{n\to \infty}\frac{c_n}{n}$ we can now plug our equation for $c_n$ in to get:
+\begin{align*}
+    \begin{aligned}
+       \lim\limits_{n\to \infty}\frac{c_n}{n} &= \lim\limits_{n\to \infty}\frac{n(\frac{n-1}{n})^n}{n}  \\
+       &= \lim\limits_{n\to \infty}(\frac{n-1}{n})^n  \\
+       &= \lim\limits_{n\to \infty}(1-\frac{1}{n})^n  \\
+       &= \frac{1}{e} \ \ \ \text{from the fact given in the question} \\
+    \end{aligned}
+\end{align*}
+Thus we have proved $\lim\limits_{n\to \infty}\frac{c_n}{n} = \frac{1}{e}$ as required.
+
+
+
+
+\end{adjustwidth} 
+\newpage
+
+
+
+
+
+\end{document}

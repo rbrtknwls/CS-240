@@ -1,0 +1,321 @@
+% <- percent signs are used to comment
+\documentclass[12pt]{article}
+
+%%%%%% PACKAGES - this part loads additional material for LaTeX %%%%%%%%%
+% Nearly anything you want can be done in LaTeX if you load the right package 
+% (search ctan.org or google it if you are looking for something).  We will load
+% here a few that we need for this document or that we expect you to need later.
+
+% The next 3 lines are needed to fix shortcomings of TeX that only make sense given its 40-year history ...
+% Simple keep and ignore.
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{changepage}
+\usepackage{lipsum}
+\usepackage{caption}
+
+% Custom margins (and paper sizes etc.) because LaTeX else wastes much space
+\usepackage[margin=1in]{geometry}
+
+% The following packages are created by the American Mathematical Society (AMS)
+% and provide lots of tools for special fonts, symbols, theorems, and proof
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+% mathtools contains many detail improvements over ams and core tex
+\usepackage{mathtools}
+
+% graphicx is required for images
+\usepackage{graphicx}
+
+% enumitem used for customizing enumerations
+\usepackage[shortlabels]{enumitem}
+
+% tikz is the package used for drawing, in particular for drawing trees. You may also find simplified packages like tikz-qtree and forest useful
+\usepackage{tikz}
+
+% hyperref allows links, urls, and many other PDF tricks.  We load it here
+%          in such a way that the PDF file has info about it
+\usepackage[%
+	pdftitle={CS240 Assignment 0},%
+	hidelinks,%
+]{hyperref}
+
+
+%%%%%% COMMANDS - here you can define your own LaTeX-commands %%%%%%%%%
+
+%%%%%% End of Preamble %%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{center}
+{\Large\textbf{CS240, Spring 2022}}\\
+\vspace{2mm}
+{\Large\textbf{Assignment 4: Question 5}}\\
+\vspace{3mm}
+\end{center}
+\begin{adjustwidth}{0em}{0pt}
+\textbf{Q5a)} Show the hash table after each insertion is complete; that is, after no more probing is required. \\\\
+The following tables represent the hash table after 31, 26, 16, 23 is inserted:
+\begin{center}
+\begin{tabular}{||c | c||}
+	\hline
+    Index & Value\\
+    \hline\hline
+    0 &\\
+    \hline
+    1 & 31\\
+    \hline
+    2 &\\
+    \hline
+    3 &\\
+    \hline
+    4 &\\
+    \hline
+    5 &\\
+    \hline
+    6 &\\
+    \hline
+    7 &\\
+    \hline
+    8 &\\
+    \hline
+    9 &\\
+    \hline
+\end{tabular} \ 
+\begin{tabular}{||c | c||}
+	\hline
+    Index & Value\\
+    \hline\hline
+    0 &\\
+    \hline
+    1 & 31\\
+    \hline
+    2 &\\
+    \hline
+    3 &\\
+    \hline
+    4 &\\
+    \hline
+    5 &\\
+    \hline
+    6 & 26\\
+    \hline
+    7 &\\
+    \hline
+    8 &\\
+    \hline
+    9 &\\
+    \hline
+\end{tabular} \
+\begin{tabular}{||c | c||}
+	\hline
+    Index & Value\\
+    \hline\hline
+    0 &\\
+    \hline
+    1 & 31\\
+    \hline
+    2 & \\
+    \hline
+    3 & \\
+    \hline
+    4 &\\
+    \hline
+    5 &\\
+    \hline
+    6 & 16\\
+    \hline
+    7 & 26\\
+    \hline
+    8 &\\
+    \hline
+    9 &\\
+    \hline
+\end{tabular} \
+\begin{tabular}{||c | c||}
+	\hline
+    Index & Value\\
+    \hline\hline
+    0 &\\
+    \hline
+    1 & 31\\
+    \hline
+    2 & \\
+    \hline
+    3 & 23\\
+    \hline
+    4 &\\
+    \hline
+    5 &\\
+    \hline
+    6 & 16\\
+    \hline
+    7 & 26\\
+    \hline
+    8 &\\
+    \hline
+    9 &\\
+    \hline
+\end{tabular}
+\end{center}
+The following tables represent the hash table after 11, 30, 20  is inserted:
+\begin{center}
+\begin{tabular}{||c | c||}
+	\hline
+    Index & Value\\
+    \hline\hline
+    0 &\\
+    \hline
+    1 & 11\\
+    \hline
+    2 & 31\\
+    \hline
+    3 & 23\\
+    \hline
+    4 &\\
+    \hline
+    5 &\\
+    \hline
+    6 & 16\\
+    \hline
+    7 & 26\\
+    \hline
+    8 &\\
+    \hline
+    9 &\\
+    \hline
+\end{tabular} \ 
+\begin{tabular}{||c | c||}
+	\hline
+    Index & Value\\
+    \hline\hline
+    0 & 30\\
+    \hline
+    1 & 11\\
+    \hline
+    2 & 31\\
+    \hline
+    3 & 23\\
+    \hline
+    4 &\\
+    \hline
+    5 &\\
+    \hline
+    6 & 16\\
+    \hline
+    7 & 26\\
+    \hline
+    8 &\\
+    \hline
+    9 &\\
+    \hline
+\end{tabular} \ 
+\begin{tabular}{||c | c||}
+	\hline
+    Index & Value\\
+    \hline\hline
+    0 & 20\\
+    \hline
+    1 & 11\\
+    \hline
+    2 & 30\\
+    \hline
+    3 & 23\\
+    \hline
+    4 & 31\\
+    \hline
+    5 &\\
+    \hline
+    6 & 16\\
+    \hline
+    7 & 26\\
+    \hline
+    8 &\\
+    \hline
+    9 &\\
+    \hline
+\end{tabular}
+\end{center}
+
+\end{adjustwidth} 
+\newpage
+\begin{adjustwidth}{0em}{0pt}
+\textbf{Q5b)} Argue that, regardless of the values of M and h(x), the insertion operation will always terminate after a finite number of probes. \\\\
+To prove this we will assume the contradiction, that is any key that is inserted will not terminate after a finite number of probes.\\\\
+Lets start by considering the insertion of an integer x, by the definition of mod we get that:
+\[ c \equiv (i+1) \mod M \text{ (where c is an integer between 0 and M) } \]
+We will then try to insert x into the index c in the hash table. Since we are assuming the contradiction, index c cant be empty as then we would have a finite number of probes. For the sake of simplicity we will describe the value at index c as x', Therefore we have two cases:\\
+
+a) x < x': we will replace x' with x at that position and insert back into our hash map x'\\
+
+b) x > x': we will continually probe values, in order to have an infinite number of probes and since the hash map has empty values, this means before reaching an empty value you will find a hash map value that greater then x. we will put x at this location and try to insert the new value (which is greater then our old x)\\\\
+Since their our a finite number of elements in the hash table, we will eventually try to insert the largest value (called $x_{new}$) in the hash table. We insert it at $c_2$ where:
+\[ c_2 = x_{new} \mod M \]
+We know the table contains at least one empty value, at an arbitrary location known as $c_3$. Therefore in order to reach this empty location we need to go through the following number of entries:
+\[ c_2 - c_3 \mod M \]
+However since this is a finite, and since $x_num$ is greater then all the other values we will reach this empty spot and insert $x_num$ at $c_3$. However this is a contradiction because we assumed it terminate after a infinite number of probes (and we did it in a finite amount), thus by proof by contradiction is follows that the insertion operation will always terminate after a finite number of probes.\\\\\\
+\textbf{Q5c)} Give an example of a hash table with n keys and size
+M > n such that insertion of a key into the hash table will require at least $cn^2$ probes for some constant c > 0. Justify insertions. \\
+To start we will pick an $n$ such that:
+\[ n = M - 1 \]
+We will thus construct the hash table in the following way, for some variable we are inserting called $\alpha$ (where $\alpha$ is an integer greater then 0:
+\begin{center}
+\begin{tabular}{||c | c||}
+	\hline
+    Index & Value\\
+    \hline\hline
+    0 & M\\
+    \hline
+    1 & 2 $\times$ M\\
+    \hline
+    2 & 3 $\times$ M\\
+    \hline
+    \vdots & \vdots\\
+    \hline
+    M-2 & (M-1) $\times$ M\\
+    \hline
+    M-1 & \\
+    \hline
+\end{tabular}
+\end{center}
+In other terms the value in our hash table for the ith index (where $0 <= i < M$) is given by:
+\[ i^{th} \text{ value in the hash table} = (i+1)*M \]
+However we know that:
+\[ 0 \equiv (i+1)*M \mod M \]
+This means that any time a value is reinserted back into the hash table, we will need to linearly probe until we reach a value that's greater then it.\\\\
+If we pick the value of 0 to insert into our table, we know that 0 is greater then none of the elements in the hash table and so we will do no probes. We will place 0 at the zeroth index and try to insert M into our hash table.\\\\
+M will get inserted to the 1st index and then we will try to insert 2M into our table. The number of probes we need to do for each value in the hash table is:
+\[ \text{Number of probes for value at index i} = i \]
+this means our total number of probes is given by:
+\begin{align*}
+    \begin{aligned}
+      \text{total number of probes} &= \sum_{i=0}^{M-2}(i) \\
+       &= \sum_{i=0}^{M-2}(i) \\
+    \end{aligned}
+\end{align*}
+We can simplify our equation for the summation to get:
+\begin{align*}  
+    \begin{aligned}
+       &= \frac{(M-3)(M-2)}{2} \\
+       &= \frac{M^2}{2} -\frac{5M}{2} + 3\\
+       &= \frac{M^2 - 2M + 1}{2} - \frac{3M}{2} + \frac{5}{2}\\
+       &= \frac{(M-1)(M-1)}{2} - \frac{3M}{2} + \frac{5}{2}\\
+    \end{aligned}
+\end{align*}
+However since we can plug in $n = M - 1$ to get:
+\begin{align*}
+    \begin{aligned}
+      \text{total number of probes} &= \frac{n^2}{2} - \frac{3M}{2} + \frac{5}{2}\\
+      &\in \Omega(\frac{n^2}{2} - \frac{3M}{2} + \frac{5}{2})\\
+      &\in \Omega(n^2)\\
+    \end{aligned}
+\end{align*}
+
+
+\end{adjustwidth} 
+
+
+
+
+\end{document}

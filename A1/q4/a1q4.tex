@@ -1,0 +1,87 @@
+% <- percent signs are used to comment
+\documentclass[12pt]{article}
+
+%%%%%% PACKAGES - this part loads additional material for LaTeX %%%%%%%%%
+% Nearly anything you want can be done in LaTeX if you load the right package 
+% (search ctan.org or google it if you are looking for something).  We will load
+% here a few that we need for this document or that we expect you to need later.
+
+% The next 3 lines are needed to fix shortcomings of TeX that only make sense given its 40-year history ...
+% Simple keep and ignore.
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{changepage}
+\usepackage{lipsum}
+\usepackage{bm}
+\usepackage{ulem}
+
+
+% Custom margins (and paper sizes etc.) because LaTeX else wastes much space
+\usepackage[margin=1in]{geometry}
+
+% The following packages are created by the American Mathematical Society (AMS)
+% and provide lots of tools for special fonts, symbols, theorems, and proof
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+% mathtools contains many detail improvements over ams and core tex
+\usepackage{mathtools}
+
+% graphicx is required for images
+\usepackage{graphicx}
+
+% enumitem used for customizing enumerations
+\usepackage[shortlabels]{enumitem}
+
+% tikz is the package used for drawing, in particular for drawing trees. You may also find simplified packages like tikz-qtree and forest useful
+\usepackage{tikz}
+
+% hyperref allows links, urls, and many other PDF tricks.  We load it here
+%          in such a way that the PDF file has info about it
+\usepackage[%
+	pdftitle={CS240 Assignment 0},%
+	hidelinks,%
+]{hyperref}
+
+
+%%%%%% COMMANDS - here you can define your own LaTeX-commands %%%%%%%%%
+
+%%%%%% End of Preamble %%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{center}
+{\Large\textbf{CS240, Spring 2022}}\\
+\vspace{2mm}
+{\Large\textbf{Assignment 1: Question 4}}\\
+\vspace{3mm}
+\end{center}
+\[ \]
+\textbf{Q4a)} Prove that $f(n) \in O'(g(n))$ implies that $f(n) \in O(g(n))$:\\ 
+\begin{adjustwidth}{0em}{0pt}
+To prove the implication we will assume the hypothesis that $f(n) \in O'(g(n))$. Be definition this means that there exists a constant $c > 0$, that for all $n>0$ we have:
+\[ f(n) \leq cg(n) \]
+Since $f(n) > 0$ this means that $f(n) = |f(n)|$ and $g(n) = |g(n)|$ this implies:
+\[ |f(n)| \leq c|g(n)| \]
+By first principles this means that:
+\[ f(n) \in O(g(n)) \]
+\end{adjustwidth}
+
+\begin{adjustwidth}{0em}{0pt}
+\textbf{Q4b)} Prove that $f(n) \in O(g(n))$ implies that $f(n) \in O'(g(n))$:\\ \\
+To prove the implication we will assume the hypothesis that $f(n) \in O(g(n))$. Be definition this means that there exists a constant $c > 0$, that for some $n_0>0$ we have:
+\[ |f(n)| \leq c|g(n)| \ \ \ \ \ \forall n > n_0\]
+Since $f(n), g(n) > 0$ we can remove the absolute value signs to get:
+\[ f(n) \leq cg(n) \ \ \ \ \ \forall n > n_0\]
+This tells us that if $n_0$ is bounded by $0 < n_0 < n$ we will get:
+\[ f(n) > cg(n) \ \ \ \ \ \forall n > n_0\]
+We will now analyse the fraction:
+\[ \frac{g(n)}{cf(n)} \]
+Since both $c>0$ and $g(n)>0$ this fraction will be continuous, moreover the range of this fraction is all the real numbers between $0$ and $n_0$. If we take the maximum value (called $x$) of the range it makes sense that:
+\[ \frac{g(n)}{cf(n)} \leq x \]
+If we rearrange we get: 
+\[ g(n) \leq x\times{c}\times{f(n)} \]
+Since x and c are constants this means that the equation is equvilient to the definition of O', which means that we have proved $g(n) \in O'(f(n))$ as wanted.
+\end{adjustwidth}
+
+\end{document}

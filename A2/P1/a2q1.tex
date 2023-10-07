@@ -1,0 +1,74 @@
+% <- percent signs are used to comment
+\documentclass[12pt]{article}
+
+%%%%%% PACKAGES - this part loads additional material for LaTeX %%%%%%%%%
+% Nearly anything you want can be done in LaTeX if you load the right package 
+% (search ctan.org or google it if you are looking for something).  We will load
+% here a few that we need for this document or that we expect you to need later.
+
+% The next 3 lines are needed to fix shortcomings of TeX that only make sense given its 40-year history ...
+% Simple keep and ignore.
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{changepage}
+\usepackage{lipsum}
+
+% Custom margins (and paper sizes etc.) because LaTeX else wastes much space
+\usepackage[margin=1in]{geometry}
+
+% The following packages are created by the American Mathematical Society (AMS)
+% and provide lots of tools for special fonts, symbols, theorems, and proof
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+% mathtools contains many detail improvements over ams and core tex
+\usepackage{mathtools}
+
+% graphicx is required for images
+\usepackage{graphicx}
+
+% enumitem used for customizing enumerations
+\usepackage[shortlabels]{enumitem}
+
+% tikz is the package used for drawing, in particular for drawing trees. You may also find simplified packages like tikz-qtree and forest useful
+\usepackage{tikz}
+
+% hyperref allows links, urls, and many other PDF tricks.  We load it here
+%          in such a way that the PDF file has info about it
+\usepackage[%
+	pdftitle={CS240 Assignment 0},%
+	hidelinks,%
+]{hyperref}
+
+
+%%%%%% COMMANDS - here you can define your own LaTeX-commands %%%%%%%%%
+
+%%%%%% End of Preamble %%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{center}
+{\Large\textbf{CS240, Spring 2022}}\\
+\vspace{2mm}
+{\Large\textbf{Assignment 2: Question 1}}\\
+\vspace{3mm}
+\end{center}
+\[ \]
+\textbf{Q1)} Suppose we are working with a heap, represented as an array, and we want to remove an element from it that is not necessarily the root.
+We are given the index of this element in the array. Describe an
+algorithm that performs this task and analyse its complexity (since we
+did not prove correctness of fix-up/fix-down in class, we do
+not require you to prove correctness).\\
+\begin{adjustwidth}{0em}{0pt}
+Given the index i for the element in the heap we want to delete, the very first thing we will want to do is swap it with the last leaf (much like we do for Algorithm 2.6 in the text book). \\
+
+After we have done the swap we will reduce the size of the heap (effectivly removing this leaf). After this we will do a fix down on this index, the time complexity of this fix down is proportional to the height of the element which is log(n). \\
+
+Thus since the swap and removal is constant time, it must be the case that this algorithm to remove the element will be log(n) time complexity.
+
+\end{adjustwidth} 
+
+
+
+
+\end{document}

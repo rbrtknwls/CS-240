@@ -1,0 +1,131 @@
+% <- percent signs are used to comment
+\documentclass[12pt]{article}
+
+%%%%%% PACKAGES - this part loads additional material for LaTeX %%%%%%%%%
+% Nearly anything you want can be done in LaTeX if you load the right package 
+% (search ctan.org or google it if you are looking for something).  We will load
+% here a few that we need for this document or that we expect you to need later.
+
+% The next 3 lines are needed to fix shortcomings of TeX that only make sense given its 40-year history ...
+% Simple keep and ignore.
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{changepage}
+\usepackage{lipsum}
+
+% Custom margins (and paper sizes etc.) because LaTeX else wastes much space
+\usepackage[margin=1in]{geometry}
+
+% The following packages are created by the American Mathematical Society (AMS)
+% and provide lots of tools for special fonts, symbols, theorems, and proof
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+% mathtools contains many detail improvements over ams and core tex
+\usepackage{mathtools}
+
+% graphicx is required for images
+\usepackage{graphicx}
+
+% enumitem used for customizing enumerations
+\usepackage[shortlabels]{enumitem}
+
+% tikz is the package used for drawing, in particular for drawing trees. You may also find simplified packages like tikz-qtree and forest useful
+\usepackage{tikz}
+
+% hyperref allows links, urls, and many other PDF tricks.  We load it here
+%          in such a way that the PDF file has info about it
+\usepackage[%
+	pdftitle={CS240 Assignment 0},%
+	hidelinks,%
+]{hyperref}
+
+
+%%%%%% COMMANDS - here you can define your own LaTeX-commands %%%%%%%%%
+
+%%%%%% End of Preamble %%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{center}
+{\Large\textbf{CS240, Spring 2022}}\\
+\vspace{2mm}
+{\Large\textbf{Assignment 1: Question 1}}\\
+\vspace{3mm}
+\end{center}
+\[ \]
+\textbf{Q1a)} Prove that $7n^4-5n^2+6 \in O(n^4)$\\
+\begin{adjustwidth}{0em}{0pt}
+We will start with the following observations:
+\begin{align*}
+    \begin{aligned}
+       1)& \ n \leq n^4 \textrm{  which implies   } n \leq 6n^4 \ \ \ \ \ \ \forall n \geq 1\\
+    	   2)& \ -n \leq 0 \textrm{  which implies   } -5n^2 \leq 0 \ \ \ \  \ \forall n \geq 1\\
+    \end{aligned}
+\end{align*}
+Applying both identities to the equation we started with gives us: 
+\[ 7n^4-5n^2+6 \leq 7n^4+6n^4  \ \ \ \ \ \ \forall n \geq 1 \]
+Simplifying we get:
+\[ 7n^4-5n^2+6 \leq 13n^4  \ \ \ \ \ \ \forall n \geq 1 \]
+Thus {\boldmath$c = 13$} and {\boldmath$n_0 = 1$}, which by first principles proves that  $7n^4-5n^2+6 \in O(n^4)$.
+\end{adjustwidth} 
+\[ \]
+\[ \]
+\textbf{Q1b)} Prove that $7n^4-5n^2+6 \in \Omega(n^4)$\\
+\begin{adjustwidth}{0pt}{0pt}
+Again we will start with some more observations:
+\begin{align*}
+    \begin{aligned}
+       1)& \ 7n^4 = 2n^4 + 5n^4 \\
+    	   2)& \ 6 \geq 0 \\
+    \end{aligned}
+\end{align*}
+Applying both identities to the equation we started with gives us: 
+\[ 7n^4 - 5n^2 + 6 \geq 2n^4 + 5n^4 -5n^2 \]
+We will now isolate the terms $5n^4 -5n^2$ and discover when the equation is positive:
+\begin{align*}
+    \begin{aligned}
+       5n^4 -5n^2 &\geq 0 \\
+    	   5n^4 &\geq 5n^2 \\
+    	   n^2 &\geq 1 \\
+    \end{aligned}
+\end{align*}
+Therefore when $n \geq 1$ the overall equation would be smaller if the terms are removed, so it follows that:
+\[ 7n^4 - 5n^2 + 6 \geq 2n^4 + 5n^4 -5n^2 \geq 2n^4 \ \ \ \ \ \ \forall n \geq 1 \]
+Thus {\boldmath$c = 2$} and {\boldmath$n_0 = 1$}, which by first principles proves that  $7n^4-5n^2+6 \in \Omega(n^4)$.
+\end{adjustwidth}
+\newpage
+\textbf{Q1c)} Prove that $5n^2 + 15 \in o(n^3)$\\
+\begin{adjustwidth}{0pt}{0pt}
+We can start by making the following observation:
+\begin{align*}
+    \begin{aligned}
+		1)& \ 1 \leq 1*n^2 \textrm{  which implies   } 15 \leq 15n^2 \ \ \ \ \ \ \forall n \geq 1\\
+    \end{aligned}
+\end{align*}
+Therefore we can get the following equality:
+\begin{align*}
+    \begin{aligned}
+       5n^2 + 15 &\leq 5n^2 + 15n^2 \ \ \ \ \ \ \forall n \geq 1 \\
+    	   5n^2 + 15  &\leq 20n^2 \ \ \ \ \ \ \ \ \ \ \ \ \ \ \forall n \geq 1
+    \end{aligned}
+\end{align*}
+In order to get a $n^3$ on the right side we can do the following:
+\[ 5n^2 + 15 \leq \frac{20}{n}n^3 \ \ \ \ \ \ \forall n \geq 1 \]
+For $5n^2 + 15 \in o(n^3)$, it must be the case that for any value of $c > 0$:
+\[ 5n^2 + 15 \leq \frac{20}{n}n^3 \leq cn^3\ \ \ \ \ \ \forall n \geq 1 \]
+At the moment $5n^2 + 15$ is not relevant so we can remove it and solve for $n_0$:
+\begin{align*}
+    \begin{aligned}
+       \frac{20}{n}n^3 &\leq cn^3 \ \ \ \ \ \ \forall n \geq 1 \\
+    	   n &\geq \frac{20}{c} \ \ \ \forall n \geq 1
+    \end{aligned}
+\end{align*}
+Therefore $n \geq \frac{20}{c}$ and $n \geq 1$ which tells us that:
+{\boldmath \[ n_0 = \lceil \frac{20}{c} \rceil \]}
+Thus for any value $c > 0$ we can get a value for $n_0$ such that:
+\[ 5n^2 + 15 \leq \frac{20}{n}n^3 \leq cn^3\ \ \ \ \ \ \forall n \geq n_0 \]
+Which by first principles proves that $5n^2 + 15 \in o(n^3)$.
+\end{adjustwidth}
+
+\end{document}

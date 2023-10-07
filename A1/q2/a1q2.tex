@@ -1,0 +1,127 @@
+% <- percent signs are used to comment
+\documentclass[12pt]{article}
+
+%%%%%% PACKAGES - this part loads additional material for LaTeX %%%%%%%%%
+% Nearly anything you want can be done in LaTeX if you load the right package 
+% (search ctan.org or google it if you are looking for something).  We will load
+% here a few that we need for this document or that we expect you to need later.
+
+% The next 3 lines are needed to fix shortcomings of TeX that only make sense given its 40-year history ...
+% Simple keep and ignore.
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{changepage}
+\usepackage{lipsum}
+\usepackage{bm}
+
+% Custom margins (and paper sizes etc.) because LaTeX else wastes much space
+\usepackage[margin=1in]{geometry}
+
+% The following packages are created by the American Mathematical Society (AMS)
+% and provide lots of tools for special fonts, symbols, theorems, and proof
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+% mathtools contains many detail improvements over ams and core tex
+\usepackage{mathtools}
+
+% graphicx is required for images
+\usepackage{graphicx}
+
+% enumitem used for customizing enumerations
+\usepackage[shortlabels]{enumitem}
+
+% tikz is the package used for drawing, in particular for drawing trees. You may also find simplified packages like tikz-qtree and forest useful
+\usepackage{tikz}
+
+% hyperref allows links, urls, and many other PDF tricks.  We load it here
+%          in such a way that the PDF file has info about it
+\usepackage[%
+	pdftitle={CS240 Assignment 0},%
+	hidelinks,%
+]{hyperref}
+
+
+%%%%%% COMMANDS - here you can define your own LaTeX-commands %%%%%%%%%
+
+%%%%%% End of Preamble %%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{center}
+{\Large\textbf{CS240, Spring 2022}}\\
+\vspace{2mm}
+{\Large\textbf{Assignment 1: Question 2}}\\
+\vspace{3mm}
+\end{center}
+\[ \]
+\textbf{Q2a)} Determine the relationship between $f(n) = n^2 + 22n(\log(n)) + 13$ and $g(n) = n^2\log(n) + 14$:\\
+\begin{adjustwidth}{0em}{0pt}
+In order to find the relationship between $f(n)$ and $g(n)$ we will use limit $L$ such that:
+\[ L = \lim_{n\to\infty}\frac{f(n)}{g(n)} \]
+Replacing $f(n)$ and $g(n)$ with the polynomials they represent gives us:
+\[ L = \lim_{n\to\infty}\left(\frac{n^2 + 22n(\log(n)) + 13}{n^2\log(n) + 14}\right) \]
+The Comparison Test tells us that since $n^2\log(n) < n^2\log(n) + 14$ for all $n > 0$ that:
+\[\text{if  } \lim_{n\to\infty}\left(\frac{n^2 + 22n(\log(n)) + 13}{n^2\log(n)}\right) = 0 \implies \lim_{n\to\infty}\left(\frac{n^2 + 22n(\log(n)) + 13}{n^2\log(n) + 14}\right) = 0 \]
+Therefore we can simplify the left most equation to get:
+\begin{align*}
+    \begin{aligned}
+       \lim_{n\to\infty}\left(\frac{n^2 + 22n(\log(n)) + 13}{n^2\log(n)}\right) &=\lim_{n\to\infty}\left(\frac{n^2}{n^2\log(n)}+\frac{22n(\log(n))}{n^2\log(n)}+\frac{13}{n^2\log(n)}\right)  \\
+    	   &=\lim_{n\to\infty}\left(\frac{1}{\log(n)}+\frac{22}{n}+\frac{13}{n^2\log(n)}\right) \\
+    	       	   &=\frac{1}{\log(\infty)}+\frac{22}{\infty}+\frac{13}{\infty^2\log(\infty)} \\
+    	       	   &=0 + 0  + 0 \\
+    	       	   &=0\\
+    \end{aligned}
+\end{align*}
+Thus by the Comparison test we get:
+\[ \lim_{n\to\infty}\left(\frac{n^2 + 22n(\log(n)) + 13}{n^2\log(n) + 14}\right) = L = 0 \]
+Since $L = 0$ this means that:
+\[ n^2 + 22n(log(n)) + 13 \in \textbf{o}(n^2log(n) + 14) \] 
+\end{adjustwidth}
+\newpage
+\begin{adjustwidth}{0em}{0pt}
+\textbf{Q2b)} Determine the relationship between $f(n) = \sqrt{n}$ and $g(n) = \log(n^4)$:\\ \\
+We will find the relationship between $f(n)$ and $g(n)$ by finding the limit L where:
+\[ L =  \lim_{n\to\infty}\frac{\sqrt{n}}{\log(n^4)} \]
+Log rules show us that $\log(n^4)$ = $4\log(n)$ therefore our limit formula becomes:
+\[ L =  \lim_{n\to\infty}\frac{\sqrt{n}}{4\log(n)} \]
+If we apply L'Hopital's rule we get:
+\begin{align*}
+    \begin{aligned}
+       \lim_{n\to\infty}\frac{\sqrt{n}}{4\log(n)} &= \lim_{n\to\infty}\frac{\frac{1}{2}n^{-\frac{1}{2}}}{\frac{4}{n\ln(2)}} \\
+       &= \lim_{n\to\infty}\frac{\frac{1}{2}\times\frac{1}{n^{\frac{1}{2}}}}{\frac{4}{n\ln(2)}} \\
+       &= \lim_{n\to\infty}\frac{\frac{1}{2}\times\frac{1}{n^{\frac{1}{2}}}\times{n}}{\frac{4}{\ln(2)}} \\
+       &= \lim_{n\to\infty}\frac{\frac{1}{2}\sqrt{n}}{\frac{4}{\ln(2)}} \\
+       &= \frac{\frac{1}{2}\sqrt{\infty}}{\frac{4}{\ln(2)}} \\
+       &= \infty \\
+    \end{aligned}
+\end{align*}
+Therefore by the limit test since $L = \infty$ it implies that the relationship is:
+\[ \sqrt{n} \in \bm{\omega}(log(n^4)) \]\\
+\end{adjustwidth}
+\newpage
+\begin{adjustwidth}{0em}{0pt}
+\textbf{Q2c)} Determine the relationship between $f(n) = 10^n+99n^{10}$ and $g(n) = 75^n + 25n^{27}$:\\ \\
+We will find the relationship between $f(n)$ and $g(n)$ by finding the limit L where:
+\[ L =  \lim_{n\to\infty}\frac{10^n+99n^{10}}{75^n + 25n^{27}} \]
+We will apply L'Hopital's rule to see if we notice any trends in the derivative:
+\[ \lim_{n\to\infty}\frac{10^n+99n^{10}}{75^n + 12n^{27}} = \lim_{n\to\infty}\frac{10^n\times\ln(10)+990n^{9}}{75^n\times\ln(75) + 650n^{26}} \]
+As we can see each time we take the derivative of $75^n$ or $10^n$ we will get a constant factor ($\ln(75)$ or $\ln(10)$) which wont impact future derivatives. Since the derivative will continue much the same we will skip to the 10th derivative:
+\[ \lim_{n\to\infty}\frac{10^n+99n^{10}}{75^n + 12n^{27}} = \lim_{n\to\infty}\frac{10^n\times(\ln(10))^{10}+359251200}{75^n\times(\ln(75))^{10} + 25\times \frac{27!}{17!}n^{17}} \]
+If we take the next derivative we will get rid of the constant term (359251200) as seen below:
+\[ \lim_{n\to\infty}\frac{10^n+99n^{10}}{75^n + 12n^{27}} = \lim_{n\to\infty}\frac{10^n\times(\ln(10))^{11}}{75^n\times(\ln(75))^{11} + 25\times \frac{27!}{16!}n^{16}} \]
+To get rid of the $\frac{27!}{16!}n^{16}$ term on the denominator we will skip to the 28th derivative:
+\begin{align*}
+    \begin{aligned}
+       \lim_{n\to\infty}\frac{10^n+99n^{10}}{75^n + 12n^{27}} &= \lim_{n\to\infty}\frac{10^n\times(\ln(10))^{28}}{75^n\times(\ln(75))^{28}} \\
+       &= \lim_{n\to\infty}(\frac{10}{75})^{n}\times(\frac{\ln(10)}{\ln(75)})^{25} \\
+       &= (\frac{10}{75})^{\infty}\times(\frac{\ln(10)}{\ln(75)})^{25} \\
+       &= 0\times(\frac{\ln(10)}{\ln(75)})^{25} \\
+       &= 0
+    \end{aligned}
+\end{align*}
+Therefore by the limit test since $L = 0$ it implies that the relationship is:
+\[ 10^n+99n^{10} \in \textbf{o}(75^n + 12n^{27}) \]\\
+\end{adjustwidth}
+
+\end{document}

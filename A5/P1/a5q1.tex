@@ -1,0 +1,100 @@
+% <- percent signs are used to comment
+\documentclass[12pt]{article}
+
+%%%%%% PACKAGES - this part loads additional material for LaTeX %%%%%%%%%
+% Nearly anything you want can be done in LaTeX if you load the right package 
+% (search ctan.org or google it if you are looking for something).  We will load
+% here a few that we need for this document or that we expect you to need later.
+
+% The next 3 lines are needed to fix shortcomings of TeX that only make sense given its 40-year history ...
+% Simple keep and ignore.
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{changepage}
+\usepackage{lipsum}
+\usepackage{caption}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+% Custom margins (and paper sizes etc.) because LaTeX else wastes much space
+\usepackage[margin=1in]{geometry}
+
+% The following packages are created by the American Mathematical Society (AMS)
+% and provide lots of tools for special fonts, symbols, theorems, and proof
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+% mathtools contains many detail improvements over ams and core tex
+\usepackage{mathtools}
+
+% graphicx is required for images
+\usepackage{graphicx}
+
+% enumitem used for customizing enumerations
+\usepackage[shortlabels]{enumitem}
+
+% tikz is the package used for drawing, in particular for drawing trees. You may also find simplified packages like tikz-qtree and forest useful
+\usepackage{tikz}
+
+% hyperref allows links, urls, and many other PDF tricks.  We load it here
+%          in such a way that the PDF file has info about it
+\usepackage[%
+	pdftitle={CS240 Assignment 0},%
+	hidelinks,%
+]{hyperref}
+
+
+%%%%%% COMMANDS - here you can define your own LaTeX-commands %%%%%%%%%
+
+%%%%%% End of Preamble %%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{center}
+{\Large\textbf{CS240, Spring 2022}}\\
+\vspace{2mm}
+{\Large\textbf{Assignment 5: Question 1}}\\
+\vspace{3mm}
+\end{center}
+
+\begin{adjustwidth}{0em}{0pt}
+\textbf{Q1)} Give an algorithm to find the point with the maximum x-value in a 2D kd-tree, and analyze
+its complexity. For maximum credit, your algorithm must run in o(n) time, where n is the
+number of points in the kd-tree. For simplicity, you may assume that n is a power of 4. If the
+run-time T(n) of your algorithm satisfies a recurrence relation that has already been seen in
+class, you can take for granted the corresponding growth rate for T(n), without giving the
+proof. \\\\
+Assume that we already have a KD tree called K which for each split (both in terms of x and y) somewhat equally separates values into two parts.\\\\
+When our algorithm encounters a split in terms of x, we will always recurse on the right child of K. This is because we are looking for the largest x-value, which should always be larger then our current split. When we reach a split in terms of y we should recurse on both sides as the largest x value can have any y value. \\\\
+We will assume that we build the KD tree by doing an x split first, and we will use a boolean to represent the type of split. Our algorithm is thus:
+
+\begin{algorithm}
+\caption{KD Tree Max X Search}
+\begin{algorithmic} 
+\STATE \textbf{findMax}(kDTree K, Bool xSplit) \{
+\IF {K is leaf} 
+\STATE return k.x
+\ENDIF
+\IF {xSplit == true} 
+\STATE return findMax(k.rightChild, false)
+\ENDIF
+\STATE // if we reach this stage, it means we should do a Y split
+\STATE return max(findMax(k.rightChild, true), findMax(k.leftChild, true))
+\end{algorithmic}
+\end{algorithm} Note that half the values will go under the x split, and the other half will go under the y split and will additionally be split twice, thus our relation is (simplifying using known relations):
+\begin{align}
+   T(n) &=\frac{1}{2}T(n/2) + \frac{1}{2}\times2T(n/4) + O(1) \\
+     & =\frac{1}{2}\sqrt{n} + \frac{1}{2}\times2T(n/4) + O(1)\\
+     & =\frac{1}{2}\sqrt{n} + \frac{1}{2}\log(n)
+\end{align}
+Since we know $\sqrt{n}$ dominates $\log(n)$ we will do our limit test using $\frac{\sqrt{n}}{n}$:
+\begin{align}
+   \text{limit} &=\lim_{n\rightarrow\infty}\frac{\sqrt{n}}{n} \\
+     & =\lim_{n\rightarrow\infty}\frac{1}{\sqrt{n}}\\
+     & =0 
+\end{align}
+And so by the limit test we have:
+\[ \frac{1}{2}\sqrt{n} + \frac{1}{2}\log(n) = o(n)\]
+
+\end{adjustwidth}
+\end{document}
